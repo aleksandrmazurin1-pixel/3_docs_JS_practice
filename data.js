@@ -41,8 +41,7 @@ function addCategory(name) {
 
 
 function addTask(categoryId, taskName) {
-    const category = window.store.find(cat => cat.name === categoryId);
-    console.log('dd')
+    const category = window.store.find(cat => cat.id === categoryId);
     if (category) {
         category.tasks.push({
             id: crypto.randomUUID(),
@@ -53,8 +52,9 @@ function addTask(categoryId, taskName) {
     }
 }
 
-addCategory('nam444e');
-addTask('nam444e', '23tdaskName')
 
-store[0];
+
+
+
+
 
