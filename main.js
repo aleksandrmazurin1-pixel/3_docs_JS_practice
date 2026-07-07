@@ -3,17 +3,22 @@
 (display.js ещё нет, поэтому просто смотрим в консоль)
 Обработчик формы добавления категории — читает значение из инпута и вызывает addCategory(...)*/
 
-addEventListener('storeChanged', handleStore);
-addEventListener('submit', (evt) => handleForm(evt)); //Не могу понять, как связана форма, которая в HTL с формой здесь, потому что не вижу нигде, чтобы я привязал, нашёл элемент по ID форму, и она фигурировала.
-//А если будет две или три формы на сайте, как JS поймёт, к какой форме что относится?
+const form = document.getElementById('form');
+const input = document.getElementById('input');
 
-function handleStore() {
+renderStore();
+
+
+window.addEventListener('storeChanged', renderStore);
+
+function renderStore() {
     console.log(window.store);
 }
 
+form.addEventListener('submit', (evt) => handleForm(evt)); 
 function handleForm(evt) {
     evt.preventDefault();
     
     addCategory(input.value);
-    form.input.value = '';
+    input.value = '';
 }

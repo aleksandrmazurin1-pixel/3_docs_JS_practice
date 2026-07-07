@@ -36,7 +36,7 @@ function addCategory(name) {
         tasks: []
     });
     
-    window.dispatchEvent(new StorageEvent('storeChanged'));
+    window.dispatchEvent(new Event('storeChanged'));
 }
 
 
@@ -50,6 +50,7 @@ function addTask(categoryId, taskName) {
     } else {
         console.log('Неправильное имя категории!')
     }
+    window.dispatchEvent(new Event('storeChanged')); 
 }
 
 
