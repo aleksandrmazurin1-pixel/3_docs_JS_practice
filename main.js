@@ -8,12 +8,15 @@ const input = document.getElementById('input');
 window.addEventListener('storeChanged', display);
 
 
-form.addEventListener('submit', (evt) => handleForm(evt)); 
+form.addEventListener('submit', (evt) => handleForm(evt));
 function handleForm(evt) {
     evt.preventDefault();
-    
-    addCategory(input.value);
-    input.value = '';
+    if (input.value !== '') {
+        addCategory(input.value);
+        input.value = '';
+    } else {
+        return;
+    }
 }
 
 

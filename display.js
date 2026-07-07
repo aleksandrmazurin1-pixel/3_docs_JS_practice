@@ -1,34 +1,49 @@
 
-/*
-Задание 12 — добавляем display.js, который рисует одноуровневый список
-Теперь добавляем третий файл — display.js. Пока без вложенности: рисуем только категории, 
-без задач внутри них.
-В display.js напиши функцию display(), которая:
 
-Находит <ul> на странице через getElementById
-Очищает его через innerHTML = ''
-Проходит по window.store через forEach
-Для каждой категории создаёт <li> с текстом category.name и добавляет в <ul> через append
+/*Задание 14 — очистка лишних DOM-элементов
+В прошлом задании ты научился добавлять новые элементы без пересоздания старых. Но есть обратная 
+сторона: если категорию удалить из window.store — её <li> останется висеть на экране, потому что 
+display() только добавляет, но никогда ничего не удаляет.
 
-В main.js замени renderStore() и подписку на 'storeChanged' — теперь вместо console.log вызывай 
-display().
-В index.html добавь <ul id="list"></ul> и убедись, что порядок подключения скриптов правильный: 
-data.js → display.js → main.js.
-Проверь: введи название категории, нажми кнопку — категория должна появиться на странице как <li> 
-внутри <ul>. Добавь несколько категорий — все должны отображаться.
-Цель этого задания — почувствовать, как display.js берёт данные из window.store и рисует их на экране, 
-не зная ничего про формы и события.
+Напиши функцию cleanup(), которая решает обратную задачу: находит все <li> на экране с
+ data-атрибутом data-cat-id, и для каждого проверяет — есть ли в window.store категория с таким id. 
+ Если нет — удаляет этот <li> из DOM.
+
+
+В display.js обнови функцию display() — пусть она вызывает и существующий умный рендер, и новую 
+cleanup().
+
+Проверь: добавь две-три категории, потом удали одну через вызов deleteCategory(id) прямо в 
+консоли — <li> должен исчезнуть со страницы.
 */
+
 
 
 const list = document.getElementById('list');
 
 
 function display() {
-    list.innerHTML = '';
     window.store.forEach(element => {
-        const li = document.createElement('li');
-        li.textContent = element.name; 
-        list.prepend(li); //Я поставил prepend, Потому что мне нужно, чтобы список со старыми значениями уходил вниз.  
+        let li = document.querySelector(`[data-cat-id="${element.id}"]`);
+        if (!li) {
+            li = document.createElement('li');
+            li.textContent = element.name;
+            li.dataset.catId = element.id;
+            list.prepend(li);
+        } else {
+            li.innerText = element.name;
+        }
+    });
+    console.log(store);
+    cleanup();
+}
+
+function cleanup() {
+    const allDataLi = document.querySelectorAll('[data-cat-id]');
+    window.store.forEach(element => {
+        if (element.id !== allDataLi) {
+            window.store = window.store.filter(ell => ell.id === element.id);
+        }
+        return;
     });
 }
