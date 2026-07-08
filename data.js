@@ -13,7 +13,7 @@ function addCategory(name) {
         tasks: []
     });
     
-    window.dispatchEvent(new Event('storeChanged'));
+    window.dispatchEvent(new Event('storeChangedCat'));
 }
 
 
@@ -27,20 +27,20 @@ function addTask(categoryId, taskName) {
     } else {
         console.log('Неправильное имя категории!')
     }
-    window.dispatchEvent(new Event('storeChanged')); 
+    window.dispatchEvent(new Event('storeChangedTask')); 
 }
 
 
 function deleteCategory(categoryId) {
     window.store = window.store.filter(element => element.id !== categoryId);
-    window.dispatchEvent(new Event('storeChanged'));
+    window.dispatchEvent(new Event('storeChangedCat'));
 }
 
 
 function deleteTask(categoryId, taskId) {
     window.store = window.store.filter(element => element.id !== categoryId);
     window.store = window.store.filter(element => element.id !== taskId);
-    
+    window.dispatchEvent(new Event('storeChangedCat'));
 }
 
 

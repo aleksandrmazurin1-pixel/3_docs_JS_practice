@@ -15,20 +15,35 @@ const selectorTask = document.getElementById('selectorTask');
 
 
 
-function display() {
+function displayCat() {
     window.store.forEach(element => {
         let optionTask = document.querySelector(`[data-cat-id="${element.id}"]`);
         if (!optionTask) {
             optionTask = document.createElement('option');
             optionTask.textContent = element.name;
             optionTask.dataset.catId = element.id;
-            selectorTask.prepend(optionTask);
+            selectorTask.prepend(optionTask); 
+        } else {
+            optionTask.innerText = element.name;
+        }
+        displayTask(element.id)
+    });
+    console.log(store);
+    cleanup();
+}
+
+function displayTask(categoryId) {
+    window.store.task.forEach(element => {
+        let li = document.querySelector(`[data-task-id="${element.id}"]`);
+        if (!li) {
+            li = document.createElement('li');
+            li.textContent = element.name;
+            li.dataset.catId = element.id;
+            list.prepend(li);
         } else {
             li.innerText = element.name;
         }
     });
-    console.log(store);
-    cleanup();
 }
 
 

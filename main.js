@@ -10,10 +10,8 @@ const input = document.getElementById('input');
 const formTask = document.getElementById('formTask');
 const inputTask = document.getElementById('inputTask');
 
-
-
-window.addEventListener('storeChanged', display);
-
+window.addEventListener('storeChangedCat', displayCat);
+window.addEventListener('storeChangedTask', displayTask);
 
 
 form.addEventListener('submit', (evt) => handleForm(evt));
