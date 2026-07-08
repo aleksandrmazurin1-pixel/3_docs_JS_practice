@@ -22,7 +22,7 @@ function displayCat() {
             optionTask = document.createElement('option');
             optionTask.textContent = element.name;
             optionTask.dataset.catId = element.id;
-            selectorTask.prepend(optionTask); 
+            selectorTask.prepend(optionTask);
         } else {
             optionTask.innerText = element.name;
         }
@@ -32,20 +32,23 @@ function displayCat() {
     cleanup();
 }
 
+
+
 function displayTask(categoryId) {
-    window.store.task.forEach(element => {
-        let li = document.querySelector(`[data-task-id="${element.id}"]`);
-        if (!li) {
-            li = document.createElement('li');
-            li.textContent = element.name;
-            li.dataset.catId = element.id;
-            list.prepend(li);
-        } else {
-            li.innerText = element.name;
+    window.store.forEach(element => {
+        if (element.id === categoryId) {
+            element.tasks.forEach(task => {
+                let li = document.querySelector(`[data-task-id="${task.id}"]`);
+                if (!li) {
+                    li = document.createElement('li');
+                    li.textContent = task.name;
+                    li.dataset.taskId = task.id;
+                    list.prepend(li);
+                }
+            });
         }
     });
 }
-
 
 
 function cleanup() {
@@ -61,23 +64,3 @@ function cleanup() {
 
 
 
-
-
-
-
-/*
-function display() {
-    window.store.forEach(element => {
-        let li = document.querySelector(`[data-cat-id="${element.id}"]`);
-        if (!li) {
-            li = document.createElement('li');
-            li.textContent = element.name;
-            li.dataset.catId = element.id;
-            list.prepend(li);
-        } else {
-            li.innerText = element.name;
-        }
-    });
-    console.log(store);
-    cleanup();
-}*/

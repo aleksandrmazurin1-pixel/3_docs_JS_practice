@@ -38,8 +38,12 @@ function deleteCategory(categoryId) {
 
 
 function deleteTask(categoryId, taskId) {
-    window.store = window.store.filter(element => element.id !== categoryId);
-    window.store = window.store.filter(element => element.id !== taskId);
+    const foundStore = window.store.find(element => element.id === categoryId);
+    if(foundStore) {
+       foundStore.tasks = foundStore.tasks.filter(el => el.id !== taskId);
+    } else {
+        console.log('Категории не существует!')
+    }
     window.dispatchEvent(new Event('storeChangedCat'));
 }
 

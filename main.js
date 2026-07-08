@@ -32,7 +32,9 @@ formTask.addEventListener('submit', (evt) => handleTask(evt));
 function handleTask(evt) {
     evt.preventDefault();
     if (inputTask !== "") {
-        addTask(inputTask.value);
+        const selectedOption = selectorTask.options[selectorTask.selectedIndex];
+        const categoryId = selectedOption.dataset.catId;
+        addTask(option.value, inputTask.value);
     } else {
         return;
     }
