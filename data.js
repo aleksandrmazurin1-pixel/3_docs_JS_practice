@@ -1,6 +1,6 @@
 /*
-Также добавь в data.js функцию deleteCategory(categoryId) — она удаляет категорию из window.store 
-через filter и выстреливает 'storeChanged'.
+В data.js — функция deleteTask(categoryId, taskId) уже 
+писалась в задании 10, просто перенеси её сюда с dispatchEvent.
 */
 
 
@@ -37,7 +37,11 @@ function deleteCategory(categoryId) {
 }
 
 
-
+function deleteTask(categoryId, taskId) {
+    window.store = window.store.filter(element => element.id !== categoryId);
+    window.store = window.store.filter(element => element.id !== taskId);
+    
+}
 
 
 

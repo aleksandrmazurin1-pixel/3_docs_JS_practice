@@ -1,27 +1,56 @@
 
 
-/*Задание 14 — очистка лишних DOM-элементов
-В прошлом задании ты научился добавлять новые элементы без пересоздания старых. Но есть обратная 
-сторона: если категорию удалить из window.store — её <li> останется висеть на экране, потому что 
-display() только добавляет, но никогда ничего не удаляет.
-
-Напиши функцию cleanup(), которая решает обратную задачу: находит все <li> на экране с
- data-атрибутом data-cat-id, и для каждого проверяет — есть ли в window.store категория с таким id. 
- Если нет — удаляет этот <li> из DOM.
-
-
-В display.js обнови функцию display() — пусть она вызывает и существующий умный рендер, и новую 
-cleanup().
-
-Проверь: добавь две-три категории, потом удали одну через вызов deleteCategory(id) прямо в 
-консоли — <li> должен исчезнуть со страницы.
+/*
+В display.js — внутри цикла по категориям добавь вложенный рендер задач. Каждая категория должна 
+содержать свой <ul> со списком задач, и у каждого <li> задачи — свой data-атрибут data-task-id. 
+Умный рендер и cleanup должны работать на обоих уровнях — и для категорий, и для задач внутри 
+каждой категории.
 */
 
 
 
 const list = document.getElementById('list');
+const selectorTask = document.getElementById('selectorTask');
 
 
+
+
+function display() {
+    window.store.forEach(element => {
+        let optionTask = document.querySelector(`[data-cat-id="${element.id}"]`);
+        if (!optionTask) {
+            optionTask = document.createElement('option');
+            optionTask.textContent = element.name;
+            optionTask.dataset.catId = element.id;
+            selectorTask.prepend(optionTask);
+        } else {
+            li.innerText = element.name;
+        }
+    });
+    console.log(store);
+    cleanup();
+}
+
+
+
+function cleanup() {
+    const allDataLi = document.querySelectorAll('[data-cat-id]');
+    allDataLi.forEach(element => {
+        const elementStore = window.store.find(el => el.id === element.dataset.catId);
+        if (!elementStore) {
+            element.remove();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+/*
 function display() {
     window.store.forEach(element => {
         let li = document.querySelector(`[data-cat-id="${element.id}"]`);
@@ -36,14 +65,4 @@ function display() {
     });
     console.log(store);
     cleanup();
-}
-
-function cleanup() {
-    const allDataLi = document.querySelectorAll('[data-cat-id]');
-    window.store.forEach(element => {
-        if (element.id !== allDataLi) {
-            window.store = window.store.filter(ell => ell.id === element.id);
-        }
-        return;
-    });
-}
+}*/
