@@ -1,5 +1,12 @@
 window.store = [];
 
+function parce() {
+    const jsonParse = JSON.parse(localStorage.getItem('Todo'));
+    if (jsonParse) {
+        window.store = jsonParse;
+    }
+}
+
 function addCategory(name) {
     window.store.push({
         id: crypto.randomUUID(),
@@ -7,6 +14,7 @@ function addCategory(name) {
         tasks: []
     });
     
+    localStorage.setItem(('Todo'), JSON.stringify(window.store));
     window.dispatchEvent(new Event('storeChanged'));
 }
 
@@ -21,12 +29,14 @@ function addTask(categoryId, taskName) {
     } else {
         console.log('Неправильное имя категории!')
     }
+    localStorage.setItem(('Todo'), JSON.stringify(window.store));
     window.dispatchEvent(new Event('storeChanged')); 
 }
 
 
 function deleteCategory(categoryId) {
     window.store = window.store.filter(element => element.id !== categoryId);
+    localStorage.setItem(('Todo'), JSON.stringify(window.store));
     window.dispatchEvent(new Event('storeChanged'));
 }
 
@@ -38,6 +48,7 @@ function deleteTask(categoryId, taskId) {
     } else {
         console.log('Категории не существует!')
     }
+    localStorage.setItem(('Todo'), JSON.stringify(window.store));
     window.dispatchEvent(new Event('storeChanged'));
 }
 

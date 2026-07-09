@@ -13,7 +13,7 @@ function displayCat() {
             optionTask = document.createElement('option');
             optionTask.textContent = element.name;
             optionTask.dataset.catId = element.id;
-            selectorTask.prepend(optionTask);
+            selectorTask.append(optionTask);
         } else {
             optionTask.innerText = element.name;
         }
@@ -36,7 +36,15 @@ function displayTask(categoryId) {//В displayTask задача та же сам
                     li = document.createElement('li');
                     li.textContent = task.name;
                     li.dataset.taskId = task.id;
-                    list.prepend(li);
+                    list.append(li);
+
+                    const delTaskBtn = document.createElement('button');
+                    delTaskBtn.innerText = 'Del';
+                    li.append(delTaskBtn);
+
+                    delTaskBtn.addEventListener('click', () => {
+                        deleteTask(categoryId, task.id);
+                    });
                 }
             });
             cleanupTask(categoryId);

@@ -5,6 +5,8 @@ const input = document.getElementById('input');
 const formTask = document.getElementById('formTask');
 const inputTask = document.getElementById('inputTask');
 
+parce();
+displayCat();
 
 window.addEventListener('storeChanged', displayCat);
 
@@ -35,3 +37,5 @@ function handleTask(evt) {
     }
 
 }
+
+
