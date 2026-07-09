@@ -1,9 +1,3 @@
-/*
-В data.js — функция deleteTask(categoryId, taskId) уже 
-писалась в задании 10, просто перенеси её сюда с dispatchEvent.
-*/
-
-
 window.store = [];
 
 function addCategory(name) {
@@ -13,7 +7,7 @@ function addCategory(name) {
         tasks: []
     });
     
-    window.dispatchEvent(new Event('storeChangedCat'));
+    window.dispatchEvent(new Event('storeChanged'));
 }
 
 
@@ -27,13 +21,13 @@ function addTask(categoryId, taskName) {
     } else {
         console.log('Неправильное имя категории!')
     }
-    window.dispatchEvent(new Event('storeChangedTask')); 
+    window.dispatchEvent(new Event('storeChanged')); 
 }
 
 
 function deleteCategory(categoryId) {
     window.store = window.store.filter(element => element.id !== categoryId);
-    window.dispatchEvent(new Event('storeChangedCat'));
+    window.dispatchEvent(new Event('storeChanged'));
 }
 
 
@@ -44,7 +38,7 @@ function deleteTask(categoryId, taskId) {
     } else {
         console.log('Категории не существует!')
     }
-    window.dispatchEvent(new Event('storeChangedCat'));
+    window.dispatchEvent(new Event('storeChanged'));
 }
 
 

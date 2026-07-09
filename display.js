@@ -28,7 +28,7 @@ function displayCat() {
         }
         displayTask(element.id)
     });
-    console.log(store);
+    console.log(window.store);
     cleanup();
 }
 
