@@ -5,9 +5,8 @@ const input = document.getElementById('input');
 const formTask = document.getElementById('formTask');
 const inputTask = document.getElementById('inputTask');
 
+
 window.addEventListener('storeChanged', displayCat);
-
-
 
 form.addEventListener('submit', (evt) => handleForm(evt));
 

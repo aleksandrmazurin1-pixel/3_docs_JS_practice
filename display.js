@@ -1,14 +1,5 @@
 
 
-/*
-В display.js — внутри цикла по категориям добавь вложенный рендер задач. Каждая категория должна 
-содержать свой <ul> со списком задач, и у каждого <li> задачи — свой data-атрибут data-task-id. 
-Умный рендер и cleanup должны работать на обоих уровнях — и для категорий, и для задач внутри 
-каждой категории.
-*/
-
-
-
 const list = document.getElementById('list');
 const selectorTask = document.getElementById('selectorTask');
 
@@ -29,12 +20,14 @@ function displayCat() {
         displayTask(element.id)
     });
     console.log(window.store);
-    cleanup();
+    cleanupCat();
 }
 
 
 
-function displayTask(categoryId) {
+function displayTask(categoryId) {//В displayTask задача та же самая по духу, но с одним дополнительным 
+    // шагом. Задачи не лежат напрямую в window.store — они лежат внутри конкретной категории, в её tasks. 
+    // Поэтому прежде чем перебирать задачи, нужно сначала найти нужную категорию.
     window.store.forEach(element => {
         if (element.id === categoryId) {
             element.tasks.forEach(task => {
@@ -46,14 +39,16 @@ function displayTask(categoryId) {
                     list.prepend(li);
                 }
             });
+            cleanupTask(categoryId);
         }
     });
+
 }
 
 
-function cleanup() {
-    const allDataLi = document.querySelectorAll('[data-cat-id]');
-    allDataLi.forEach(element => {
+function cleanupCat() {
+    const allCat = document.querySelectorAll('[data-cat-id]');
+    allCat.forEach(element => {
         const elementStore = window.store.find(el => el.id === element.dataset.catId);
         if (!elementStore) {
             element.remove();
@@ -62,5 +57,16 @@ function cleanup() {
 }
 
 
-
+function cleanupTask(categoryId) {
+    const elementStore = window.store.find(el => el.id === categoryId);
+    if (elementStore) {
+        const allTasks = document.querySelectorAll('[data-task-id]');
+        allTasks.forEach(task => {
+            const elementTask = elementStore.tasks.find(ts => ts.id === task.dataset.taskId)
+            if (!elementTask) {
+                task.remove();
+            }
+        });
+    }
+}
 
